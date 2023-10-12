@@ -13,4 +13,4 @@ dependencies = [
 ]
 
 [project.scripts]
-sparkenv = "sparkenv:cli"
+sparkenv = "sparkenv:main"

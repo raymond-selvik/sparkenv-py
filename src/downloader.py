@@ -26,22 +26,6 @@ def download(version: str):
         tar.extractall(installation_path)
 
 
-
-    #with open(f"{installation_path}","wb") as f:
-    #    for chunk in r.iter_content(chunk_size=100 * 1024):
-    #        f.write(chunk)
-    #tarfile.open()
-    #print("Extracting...")
-    #with tarfile.open(installation_path) as tar:
-    #    tar.extractall(installation_path.parent.joinpath(installation_path.stem))
-
-
-
-
-
-
-
-
 def __get_spark_install_options(version:str):
     r = requests.get(f"{BASE_URL}/{version}")
     if not r.ok:
