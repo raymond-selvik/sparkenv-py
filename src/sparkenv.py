@@ -1,7 +1,7 @@
 import click
 from downloader import get_versions
 from installer import install_spark
-from app_config import setup_app_dirs
+from app_config.app_config import init_app_config
 
 @click.command()
 @click.option('--list', '-l', is_flag=True, help='List all available versions for install')
@@ -24,7 +24,7 @@ def cli():
 cli.add_command(install)
 
 def main():
-    setup_app_dirs()
+    init_app_config()
     cli()
 
 if __name__ == "__main__":
