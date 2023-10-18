@@ -25,7 +25,7 @@ class AppConfigStoreTestCase(unittest.TestCase):
     
     @patch("src.config.store.APP_PATH", Path('./tmp'))
     def test_add_and_get_spark_version(self):
-        expected_spark_version = SparkVersion(name =  "aa", install_path = "bb")
+        expected_spark_version = SparkVersion(name =  "aa", install_path = Path("bb"))
         
         store.add_spark_version(expected_spark_version)
         actual_spark_version = store.get_spark_version(expected_spark_version.name)
@@ -35,8 +35,8 @@ class AppConfigStoreTestCase(unittest.TestCase):
     @patch("src.config.store.APP_PATH", Path('./tmp'))
     def test_add_and_get_all_spark_versions(self):
         expected_spark_versions = [
-            SparkVersion(name =  "a1", install_path = "b1"),
-            SparkVersion(name =  "a2", install_path = "b2")
+            SparkVersion(name =  "a1", install_path = Path("b1")),
+            SparkVersion(name =  "a2", install_path = Path("b2"))
         ]
 
         store.add_spark_version(expected_spark_versions[0])
@@ -49,7 +49,7 @@ class AppConfigStoreTestCase(unittest.TestCase):
     
     @patch("src.config.store.APP_PATH", Path('./tmp'))
     def test_remove_spark_version(self):
-        spark_version  = SparkVersion(name =  "a1", install_path = "b1")
+        spark_version  = SparkVersion(name =  "a1", install_path = Path("b1"))
     
         store.add_spark_version(spark_version)
         store.remove_spark_version(spark_version.name)

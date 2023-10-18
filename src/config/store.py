@@ -2,7 +2,7 @@ import shelve
 from pathlib import Path
 from typing import Dict
 
-from src.config.models import SparkVersion
+from config.models import SparkVersion
 
 APP_PATH = Path.home().joinpath(".sparkenv")
 
@@ -27,10 +27,22 @@ def get_all_spark_versions() -> list[SparkVersion]:
     with shelve.open(APP_PATH.joinpath("config")) as config:
         spark_versions = config['spark_versions']
         return list(spark_versions.values())
-    
 
 def remove_spark_version(spark_version: str):
     with shelve.open(APP_PATH.joinpath("config"), writeback=True) as config:
         del config['spark_versions'][spark_version]
 
+def is_installed(spark_version: str) -> bool:
+    with shelve.open(APP_PATH.joinpath("config"), writeback=True) as config:
+       return spark_version in config['spark_versions']
+    
+def set_active_version(spark_version_name: str):
+    with shelve.open(APP_PATH.joinpath("config"), writeback=True) as config:
+        if is_installed(spark_version_name):
+            config["spark_version_active"] = spark_version_name
+        else:
+            raise Exception(f"Could not set version. {spark_version_name} does not exist")
 
+def get_active_version():
+    with shelve.open(APP_PATH.joinpath("config")) as config:
+        return config.get('spark_version_active', None)
