@@ -52,7 +52,7 @@ cli.add_command(version)
 cli.add_command(set_version)
 
 def main():
-    #init_app_config()
+    init_app_config()
     cli()
 
 if __name__ == "__main__":
