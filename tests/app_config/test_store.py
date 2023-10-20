@@ -45,7 +45,6 @@ class AppConfigStoreTestCase(unittest.TestCase):
         actual_spark_versions = store.get_all_spark_versions()
 
         assert expected_spark_versions == actual_spark_versions
-
     
     @patch("src.config.store.APP_PATH", Path('./tmp'))
     def test_remove_spark_version(self):
