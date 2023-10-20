@@ -1,4 +1,5 @@
 from pathlib import Path
+from config.models import SparkVersion
 import requests
 from bs4 import BeautifulSoup
 import tarfile
@@ -10,11 +11,10 @@ def get_versions() -> list[str]:
     soup = BeautifulSoup(r.content, 'html.parser')
     spark_versions = [link.get('href').strip('/').split('/')[-1] for link in soup.find_all('a') if link.get('href', '').startswith('spark-')]
     
+    return spark_versions
 
-    for version in spark_versions:
-        print(version)
 
-def download(version: str):
+def download(version: str) -> SparkVersion:
     options = __get_spark_install_options(version)
     option = __install_chooser(options)
     
@@ -24,6 +24,8 @@ def download(version: str):
 
     with tarfile.open(fileobj=r.raw, mode="r|*") as tar:
         tar.extractall(installation_path)
+
+    return SparkVersion(version, installation_path)
 
 
 def __get_spark_install_options(version:str):
